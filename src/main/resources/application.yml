@@ -1,0 +1,11 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: job-portal
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/job-portal
+      database: job-portal
+      auto-index-creation: true
