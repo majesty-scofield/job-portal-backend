@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User {
     @Id
-    private String id;
+    private Long id;
     private String name;
     @Indexed(unique = true)
     @Email(message = "The email is not valid")

@@ -1,12 +1,17 @@
 package com.backend.job_portal.exceptions;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -15,8 +20,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDetail> handleAppException(AppException e, WebRequest request) {
         ErrorDetail errorDetail = new ErrorDetail(
                 LocalDateTime.now(),
-                e.getMessage(),
                 request.getDescription(false),
+                e.getMessage(),
                 "NOT_FOUND"
         );
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
@@ -27,10 +32,30 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDetail> handleException(Exception e, WebRequest request) {
         ErrorDetail errorDetail = new ErrorDetail(
                 LocalDateTime.now(),
-                e.getMessage(),
                 request.getDescription(false),
+                e.getMessage(),
                 "INTERNAL_SERVER_ERROR"
         );
         return new ResponseEntity<>(errorDetail, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
+    public ResponseEntity<ErrorDetail> handleValidatorException(Exception e, WebRequest request) {
+        String message = "Validation failed";
+        if (e instanceof MethodArgumentNotValidException methodException) {
+            message = methodException.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(", "));
+        } else {
+            ConstraintViolationException cvException = (ConstraintViolationException) e;
+            message = cvException.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(", "));
+        }
+
+        ErrorDetail errorDetail = new ErrorDetail(
+                LocalDateTime.now(),
+                request.getDescription(false),
+                message,
+                "BAD_REQUEST"
+        );
+
+        return new ResponseEntity<>(errorDetail, HttpStatus.BAD_REQUEST);
     }
 }
