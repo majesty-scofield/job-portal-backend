@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 request.getDescription(false),
                 e.getMessage(),
-                "NOT_FOUND"
+                HttpStatus.NOT_FOUND.name()
         );
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
     }
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 request.getDescription(false),
                 e.getMessage(),
-                "INTERNAL_SERVER_ERROR"
+                HttpStatus.INTERNAL_SERVER_ERROR.name()
         );
         return new ResponseEntity<>(errorDetail, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now(),
                 request.getDescription(false),
                 message,
-                "BAD_REQUEST"
+                HttpStatus.BAD_REQUEST.name()
         );
 
         return new ResponseEntity<>(errorDetail, HttpStatus.BAD_REQUEST);

@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import java.security.SecureRandom;
+
 @RequiredArgsConstructor
 @Component
 public class Utilities {
@@ -30,5 +32,14 @@ public class Utilities {
             throw new AppException("Sequence not found");
         }
         return sequence.getSeq();
+    }
+
+    public static String generateOtp() {
+        StringBuilder otp = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < 6; i++) {
+            otp.append(random.nextInt(10));
+        }
+        return otp.toString();
     }
 }

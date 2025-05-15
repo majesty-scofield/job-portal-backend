@@ -4,8 +4,36 @@ server:
 spring:
   application:
     name: job-portal
+
   data:
     mongodb:
-      uri: mongodb://localhost:27017/job-portal
-      database: job-portal
+      uri: ${MONGODB_URI}
+      database: ${MONGODB_DATABASE}
       auto-index-creation: true
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+app:
+  from-address: ${MAIL_FROM_ADDRESS}
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          context:
+            config=DEBUG:
