@@ -30,6 +30,7 @@ public class User {
     @NotBlank(message = "The password is required")
     private String password;
     private AccountType accountType = AccountType.APPLICANT;
+    private Long profileId;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

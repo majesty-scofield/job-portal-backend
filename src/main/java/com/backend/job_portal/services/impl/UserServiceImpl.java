@@ -10,6 +10,7 @@ import com.backend.job_portal.models.OTP;
 import com.backend.job_portal.models.User;
 import com.backend.job_portal.repositories.OtpRepository;
 import com.backend.job_portal.repositories.UserRepository;
+import com.backend.job_portal.services.ProfileService;
 import com.backend.job_portal.services.UserService;
 import com.backend.job_portal.utils.Data;
 import com.backend.job_portal.utils.Utilities;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
     private final OtpRepository otpRepository;
+    private final ProfileService profileService;
 
     @Value("${app.from-address}")
     private String fromEmail;
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         // 2. Build the user object
         User user = User.builder()
                 .id(Utilities.getNextSequence("users"))
+                .profileId(profileService.createProfile(request.getEmail()))
                 .name(request.getName())
                 .email(request.getEmail())
                 .accountType(request.getAccountType())

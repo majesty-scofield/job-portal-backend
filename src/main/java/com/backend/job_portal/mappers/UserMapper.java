@@ -12,6 +12,7 @@ public class UserMapper {
         response.setName(user.getName());
         response.setEmail(user.getEmail());
         response.setAccountType(user.getAccountType());
+        response.setProfileId(user.getProfileId());
         response.setCreatedAt(user.getCreatedAt());
         response.setUpdatedAt(user.getUpdatedAt());
         return response;

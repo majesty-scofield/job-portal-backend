@@ -13,6 +13,7 @@ public class UserResponse {
     private String name;
     private String email;
     private AccountType accountType;
+    private Long profileId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
