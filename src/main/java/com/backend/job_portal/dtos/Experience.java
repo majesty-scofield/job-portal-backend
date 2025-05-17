@@ -13,6 +13,7 @@ public class Experience {
     private String title;
     private String company;
     private String location;
+    private String image;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Boolean working;
