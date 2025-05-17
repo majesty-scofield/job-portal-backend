@@ -18,7 +18,6 @@ public class Profile {
     @Id
     private Long id;
     private String name;
-    private String role;
     private String email;
     private String jobTitle;
     private String company;

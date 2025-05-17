@@ -10,7 +10,6 @@ public class ProfileMapper {
         ProfileDto dto = new ProfileDto();
         dto.setId(profile.getId());
         dto.setName(profile.getName());
-        dto.setRole(profile.getRole());
         dto.setEmail(profile.getEmail());
         dto.setJobTitle(profile.getJobTitle());
         dto.setCompany(profile.getCompany());
@@ -31,7 +30,6 @@ public class ProfileMapper {
         Profile profile = new Profile();
         profile.setId(dto.getId());
         profile.setName(dto.getName());
-        profile.setRole(dto.getRole());
         profile.setEmail(dto.getEmail());
         profile.setJobTitle(dto.getJobTitle());
         profile.setCompany(dto.getCompany());

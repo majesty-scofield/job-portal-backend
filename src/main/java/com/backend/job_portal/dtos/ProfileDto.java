@@ -8,7 +8,6 @@ import java.util.List;
 public class ProfileDto {
     private Long id;
     private String name;
-    private String role;
     private String email;
     private String jobTitle;
     private String company;
