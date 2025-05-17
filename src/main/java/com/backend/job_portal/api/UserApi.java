@@ -37,13 +37,13 @@ public class UserApi {
         return new ResponseEntity<>(userService.changePassword(request), HttpStatus.OK);
     }
 
-    @PostMapping("/sendOtp/{email}")
+    @PostMapping("/send-otp/{email}")
     public ResponseEntity<OtpResponse> sendOpt(@PathVariable @Email(message = "Invalid email address!") String email) throws Exception {
         userService.sendOtp(email);
         return new ResponseEntity<>(new OtpResponse("OTP sent successfully!"), HttpStatus.OK);
     }
 
-    @GetMapping("/verifyOtp/{email}/{otp}")
+    @GetMapping("/verify-otp/{email}/{otp}")
     public ResponseEntity<OtpResponse> verifyOtp(
             @PathVariable @Email(message = "Invalid email address!") String email,
             @PathVariable @Pattern(regexp = "^[0-9]{6}$", message = "OTP invalid") String otp) throws AppException {
